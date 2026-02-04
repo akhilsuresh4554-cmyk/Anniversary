@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clue 1 of 5 💝</title>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600&family=Manrope:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: drift 20s linear infinite;
+        }
+
+        @keyframes drift {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 50px 40px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+            animation: float-in 0.8s ease-out;
+        }
+
+        @keyframes float-in {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .progress {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 30px;
+        }
+
+        .progress-dot {
+            height: 8px;
+            flex: 1;
+            background: #e0e0e0;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .progress-dot.active {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .clue-number {
+            font-size: 0.9rem;
+            color: #764ba2;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .question-box {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .question {
+            font-size: 1.3rem;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        input {
+            width: 100%;
+            padding: 18px 25px;
+            border: 3px solid #e0e0e0;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-family: 'Manrope', sans-serif;
+            transition: all 0.3s;
+            text-align: center;
+            background: white;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #764ba2;
+            box-shadow: 0 0 0 4px rgba(118, 75, 162, 0.1);
+        }
+
+        button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+            font-family: 'Manrope', sans-serif;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(118, 75, 162, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .message {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .message.show {
+            opacity: 1;
+        }
+
+        .message.error {
+            background: #ffe0e0;
+            color: #d32f2f;
+        }
+
+        .message.success {
+            background: #e0ffe0;
+            color: #2e7d32;
+        }
+
+        .next-link {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .next-link a {
+            display: inline-block;
+            padding: 18px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .next-link a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(118, 75, 162, 0.4);
+        }
+
+        .hint {
+            text-align: center;
+            color: #999;
+            font-size: 0.9rem;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 25px;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            .question {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="progress">
+            <div class="progress-dot active"></div>
+            <div class="progress-dot"></div>
+            <div class="progress-dot"></div>
+            <div class="progress-dot"></div>
+            <div class="progress-dot"></div>
+        </div>
+
+        <div class="header">
+            <div class="clue-number">CLUE 1 OF 5</div>
+            <h1>Welcome to Your Valentine's Adventure! 💕</h1>
+            <p class="subtitle">Answer each question correctly to get closer to your surprise...</p>
+        </div>
+
+        <div class="question-box">
+            <div class="question">What is Akhil's favorite color? 🎨</div>
+            <input type="text" id="answer" placeholder="Type your answer here..." autocomplete="off">
+            <button onclick="checkAnswer()">Submit Answer</button>
+        </div>
+
+        <div class="message" id="message"></div>
+        <div class="next-link" id="nextLink">
+            <a href="clue2.html">Next Clue →</a>
+        </div>
+
+        <div class="hint">💡 Think about what color represents purity and simplicity</div>
+    </div>
+
+    <script>
+        const correctAnswer = "white";
+        let attempts = 0;
+
+        function checkAnswer() {
+            const input = document.getElementById('answer');
+            const message = document.getElementById('message');
+            const nextLink = document.getElementById('nextLink');
+            const userAnswer = input.value.trim().toLowerCase();
+
+            attempts++;
+
+            if (userAnswer === correctAnswer) {
+                message.className = 'message success show';
+                message.textContent = '🎉 Correct! You know him so well! ';
+                input.disabled = true;
+                document.querySelector('button').style.display = 'none';
+                nextLink.style.display = 'block';
+                
+                // Confetti effect
+                for (let i = 0; i < 30; i++) {
+                    createConfetti();
+                }
+            } else {
+                message.className = 'message error show';
+                if (attempts >= 3) {
+                    message.textContent = '💭 Hmm... Think about clean, pure colors!';
+                } else {
+                    message.textContent = '❌ Not quite! Try again...';
+                }
+                input.value = '';
+                input.focus();
+            }
+        }
+
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.style.position = 'fixed';
+            confetti.style.width = '10px';
+            confetti.style.height = '10px';
+            confetti.style.backgroundColor = ['#667eea', '#764ba2', '#f093fb', '#ffd700'][Math.floor(Math.random() * 4)];
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.top = '-10px';
+            confetti.style.borderRadius = '50%';
+            confetti.style.pointerEvents = 'none';
+            confetti.style.zIndex = '9999';
+            confetti.style.animation = `fall ${Math.random() * 2 + 2}s linear`;
+            
+            document.body.appendChild(confetti);
+            
+            setTimeout(() => confetti.remove(), 4000);
+        }
+
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fall {
+                to {
+                    transform: translateY(100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        document.getElementById('answer').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkAnswer();
+            }
+        });
+    </script>
+</body>
+</html>
